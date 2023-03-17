@@ -1,18 +1,14 @@
-package entity;
+package com.example.demologincsr.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 
 @Entity
-@Data
-@Table(name = "tbl_role")
-@NoArgsConstructor
-public class Role {
-    @Id
-    private Integer id;
+@Table(name = "tbl_roles")
+@Getter
+public class Role extends BaseEntity{
 
     @Column
     private String name;
