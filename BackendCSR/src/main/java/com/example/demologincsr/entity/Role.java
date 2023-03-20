@@ -1,18 +1,15 @@
 package com.example.demologincsr.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "tbl_roles")
-@Getter
+@Data
 public class Role extends BaseEntity{
 
     @Column
     private String name;
-
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<UserRole> userRoles;
 }

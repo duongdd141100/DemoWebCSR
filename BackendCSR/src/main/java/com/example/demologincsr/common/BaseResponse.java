@@ -1,8 +1,10 @@
 package com.example.demologincsr.common;
 
+import lombok.Data;
 import lombok.Setter;
 
 @Setter
+@Data
 public class BaseResponse {
     private String code;
 

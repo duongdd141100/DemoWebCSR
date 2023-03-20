@@ -1,13 +1,13 @@
 package com.example.demologincsr.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "tbl_users")
-@Getter
+@Data
 public class User extends BaseEntity{
 
     @Column
@@ -16,15 +16,7 @@ public class User extends BaseEntity{
     @Column
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserRole> userRoles;
+    @Column
+    private String roles;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
-    }
 }
