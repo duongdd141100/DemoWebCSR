@@ -1,6 +1,7 @@
 package com.example.demologincsr.controller;
 
 import com.example.demologincsr.common.BaseResponse;
+import com.example.demologincsr.entity.User;
 import com.example.demologincsr.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     private UserRepository userRepo;
 
     @GetMapping("/{id}")
-    public ResponseEntity<BaseResponse> getUser(@PathVariable Long id, Principal principal) {
+    public ResponseEntity<BaseResponse<User>> getUser(@PathVariable Long id, Principal principal) {
         try {
             return ResponseEntity.ok(new BaseResponse("200", "ok", userRepo.findById(id).get()));
         } catch (Exception e) {

@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Setter
 @Data
-public class BaseResponse {
+public class BaseResponse<T> {
     private String code;
 
     private String message;
 
-    private Object body;
+    private T body;
 
-    public BaseResponse(String code, String message, Object body) {
+    public BaseResponse(String code, String message, T body) {
         this.code = code;
         this.message = message;
         this.body = body;
