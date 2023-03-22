@@ -31,8 +31,7 @@ public class AuthServiceImpl implements AuthService {
     public User validateUser(User user) {
         if (user != null && StringUtils.hasText(user.getUsername())) {
             User realUser = userRepo.findByUsername(user.getUsername());
-            String encodeTrulyPass = passwordEncoder.encode(CharBuffer.wrap(realUser.getPassword()));
-            if (passwordEncoder.matches(CharBuffer.wrap(user.getPassword()), encodeTrulyPass)) {
+            if (passwordEncoder.matches(CharBuffer.wrap(user.getPassword()), realUser.getPassword())) {
                 return realUser;
             }
         }
