@@ -22,7 +22,6 @@ public class AuthenticationController {
     @PostMapping("/sign-in")
     public ResponseEntity<BaseResponse<String>> signIn(@AuthenticationPrincipal User user) {
         try {
-
             return ResponseEntity.ok(BaseResponse.ok(userAuthProvider.createToken(user.getUsername())));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(BaseResponse.fail(e.getMessage()));
