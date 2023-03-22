@@ -44,8 +44,7 @@ public class UserAuthProvider {
 
     public String createToken(String username) {
         Date now = new Date();
-        Date expiry = new Date(now.getTime() + 60000); // 5 minutes
-
+        Date expiry = new Date(now.getTime() + Constants.TOKEN_EXPIRE_MILLISECONDS);
         return JWT.create()
                 .withIssuer(username)
                 .withIssuedAt(now)
