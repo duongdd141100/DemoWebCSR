@@ -3,8 +3,6 @@ package com.example.demologincsr.controller;
 import com.example.demologincsr.common.BaseResponse;
 import com.example.demologincsr.config.UserAuthProvider;
 import com.example.demologincsr.entity.User;
-import com.example.demologincsr.model.CustomUserDetails;
-import com.example.demologincsr.repository.UserRepository;
 import com.example.demologincsr.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,23 +23,23 @@ public class AuthenticationController {
     public ResponseEntity<BaseResponse<String>> signIn(@AuthenticationPrincipal User user) {
         try {
 
-            return ResponseEntity.ok(new BaseResponse<>("200", "ok", userAuthProvider.createToken(user.getUsername())));
+            return ResponseEntity.ok(BaseResponse.ok(userAuthProvider.createToken(user.getUsername())));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new BaseResponse("400", e.getMessage(), null));
+            return ResponseEntity.badRequest().body(BaseResponse.fail(e.getMessage()));
         }
     }
 
     @GetMapping("/ping")
     public ResponseEntity<BaseResponse<String>> ping() {
-        return ResponseEntity.ok(new BaseResponse<>("200", "ok", "pong"));
+        return ResponseEntity.ok(BaseResponse.ok("pong"));
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<BaseResponse<User>> signUp(@RequestBody User user) {
         try {
-            return ResponseEntity.ok(new BaseResponse<>("200", "ok", authService.save(user)));
+            return ResponseEntity.ok(BaseResponse.ok(authService.save(user)));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new BaseResponse<>("400", "ERROR", null));
+            return ResponseEntity.badRequest().body(BaseResponse.fail(e.getMessage()));
         }
     }
 }

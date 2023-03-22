@@ -41,7 +41,7 @@ public class SecurityWebConfig {
                 .and()
                 .authorizeHttpRequests(requests ->
                         requests.requestMatchers(HttpMethod.POST,
-                                "/api/v1/auth/sign-in").permitAll()
+                                "/api/v1/auth/sign-in", "/api/v1/auth/sign-up", "/api/v1/auth/sign-out").permitAll()
                                 .anyRequest().authenticated());
         return http.build();
     }
