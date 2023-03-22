@@ -16,4 +16,10 @@ public class Entry extends BaseEntity{
     @Column(name = "label")
     private String label;
 
+    @Column(name = "position")
+    private String position;
+
+    @Column(name = "parent")
+    private String parent;
+
 }
