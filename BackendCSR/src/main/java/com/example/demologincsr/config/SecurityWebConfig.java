@@ -15,6 +15,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityWebConfig {
 
     @Autowired
+    private FilterExceptionHandler filterExceptionHandler;
+
+    @Autowired
     private UsernamePasswordAuthFilter userPassAuthFilter;
 
     @Autowired
@@ -25,6 +28,7 @@ public class SecurityWebConfig {
         http
                 .addFilterBefore(userPassAuthFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthFilter.class)
+                .addFilterBefore(filterExceptionHandler, JWTAuthFilter.class)
                 .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

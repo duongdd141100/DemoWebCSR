@@ -1,6 +1,5 @@
 package com.example.demologincsr.common;
 
-import com.example.demologincsr.entity.User;
 import lombok.Data;
 import lombok.Setter;
 
