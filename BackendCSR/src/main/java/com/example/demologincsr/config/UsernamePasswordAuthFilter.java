@@ -1,7 +1,7 @@
 package com.example.demologincsr.config;
 
+import com.example.demologincsr.common.ErrorMessageEnum;
 import com.example.demologincsr.entity.User;
-import com.example.demologincsr.service.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -9,13 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
@@ -34,8 +32,7 @@ public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
                 User user = objectMapper.readValue(request.getInputStream(), User.class);
                 SecurityContextHolder.getContext().setAuthentication(userAuthProvider.validateUser(user));
             } catch (Exception e) {
-                SecurityContextHolder.clearContext();
-                throw e;
+                throw new RuntimeException(ErrorMessageEnum.LOGIN_FAILED.getCode());
             }
         }
         filterChain.doFilter(request, response);

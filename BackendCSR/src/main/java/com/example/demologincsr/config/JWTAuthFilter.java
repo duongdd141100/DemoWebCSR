@@ -1,5 +1,6 @@
 package com.example.demologincsr.config;
 
+import com.example.demologincsr.common.ErrorMessageEnum;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +27,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             try {
                 SecurityContextHolder.getContext().setAuthentication(userAuthProvider.validateToken(token.split(" ")[1]));
             } catch (Exception e) {
-                SecurityContextHolder.clearContext();
-                throw e;
+                throw new RuntimeException(ErrorMessageEnum.TOKEN_INVALID.getCode());
             }
         }
         filterChain.doFilter(request, response);
