@@ -1,0 +1,18 @@
+div {
+    padding-bottom: 10px;
+}
+
+.successButton {
+    height: 35px;
+    width: 100px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #3399ff;
+    cursor: pointer;
+}
+
+input {
+    height: 30px;
+    width: 250px;
+    font-size: 14px;
+}
