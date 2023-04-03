@@ -1,5 +1,6 @@
 package com.example.demologincsr.config;
 
+import com.example.demologincsr.constant.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,8 @@ public class SecurityWebConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .exceptionHandling().accessDeniedHandler(new AccessDeniedExceptionHandler())
+                .and()
                 .addFilterBefore(userPassAuthFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthFilter.class)
                 .addFilterBefore(filterExceptionHandler, JWTAuthFilter.class)
@@ -34,7 +37,7 @@ public class SecurityWebConfig {
                 .and()
                 .authorizeHttpRequests(requests ->
                         requests.requestMatchers(HttpMethod.POST,
-                                "/api/v1/auth/sign-in", "/api/v1/auth/sign-up", "/api/v1/auth/sign-out").permitAll()
+                                Constants.SIGN_IN_API, Constants.SIGN_UP_API, Constants.SIGN_OUT_API).permitAll()
                                 .anyRequest().authenticated());
         return http.build();
     }
