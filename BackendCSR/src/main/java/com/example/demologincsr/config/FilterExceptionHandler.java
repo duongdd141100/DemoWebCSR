@@ -27,7 +27,7 @@ public class FilterExceptionHandler extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write(objectMapper.writeValueAsString(
                     BaseResponse.fail(ErrorMessageEnum.typeOf(e.getMessage()).getMessage())));
         }

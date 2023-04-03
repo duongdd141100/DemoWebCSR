@@ -27,12 +27,10 @@ public class SecurityWebConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .exceptionHandling().accessDeniedHandler(new AccessDeniedExceptionHandler())
-                .and()
+                .cors().and().csrf().disable()
                 .addFilterBefore(userPassAuthFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthFilter.class)
                 .addFilterBefore(filterExceptionHandler, JWTAuthFilter.class)
-                .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(requests ->
