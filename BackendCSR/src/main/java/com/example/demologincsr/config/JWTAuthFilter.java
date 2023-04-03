@@ -1,6 +1,7 @@
 package com.example.demologincsr.config;
 
 import com.example.demologincsr.common.ErrorMessageEnum;
+import com.example.demologincsr.constant.Constants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
@@ -27,6 +29,10 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             try {
                 SecurityContextHolder.getContext().setAuthentication(userAuthProvider.validateToken(token.split(" ")[1]));
             } catch (Exception e) {
+                throw new RuntimeException(ErrorMessageEnum.TOKEN_INVALID.getCode());
+            }
+        } else {
+            if (!Arrays.asList(Constants.SIGN_IN_API, Constants.SIGN_UP_API, Constants.SIGN_OUT_API).contains(request.getServletPath())) {
                 throw new RuntimeException(ErrorMessageEnum.TOKEN_INVALID.getCode());
             }
         }
