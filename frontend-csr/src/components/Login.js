@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { signIn } from "../constants/ServiceConstants";
-import { post } from "../services/Service"
+import { signInApi } from "../constants/ServiceConstants";
+import { Services } from "../services/Service"
 import '../css/Common.css'
 
 const divStyle = {
@@ -27,7 +27,7 @@ export default function Login({ setToken }) {
             <input type={"password"} name="password" id="password" onChange={e => setPass(e.target.value)} />
         </div>
 
-        <button className="successButton" onClick={() => post(signIn,
+        <button className="successButton" onClick={() => Services.post(signInApi,
             JSON.stringify({
                 username: user,
                 password: pass
