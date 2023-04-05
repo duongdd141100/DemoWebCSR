@@ -1,6 +1,5 @@
 export const Services = {
     get: async function(url, onSuccess, onFail, token) {
-        console.log(localStorage.getItem("token"))
         await fetch(url,
             {
                 method: "GET",
@@ -9,7 +8,6 @@ export const Services = {
                 return response.json()
             })
             .then(data => {
-                console.log(data)
                 if (data.code === '200') {
                     onSuccess(data);
                 } else {
