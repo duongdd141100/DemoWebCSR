@@ -32,7 +32,10 @@ export default function Login({ setToken }) {
                 username: user,
                 password: pass
             }),
-            (data) => setToken(`Bearer ${data.body}`),
+            (data) => {
+                setToken(`Bearer ${data.body}`);
+                localStorage.setItem("token", `Bearer ${data.body}`);
+            },
             (data) => {throw new Error(data.body);}
             )}>Login</button>
 

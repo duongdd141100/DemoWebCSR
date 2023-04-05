@@ -1,9 +1,10 @@
 export const Services = {
     get: async function(url, onSuccess, onFail, token) {
+        console.log(localStorage.getItem("token"))
         await fetch(url,
             {
                 method: "GET",
-                headers: {"Authorization": token},
+                headers: {"Authorization": localStorage.getItem("token")},
             }).then(response => {
                 return response.json()
             })
@@ -12,6 +13,7 @@ export const Services = {
                 if (data.code === '200') {
                     onSuccess(data);
                 } else {
+                    localStorage.setItem("token", "")
                     onFail(data);
                 }
                 return data;
@@ -23,13 +25,14 @@ export const Services = {
         fetch(url,
             {
                 method: "POST",
-                headers: {"Authorization": token || ""},
+                headers: {"Authorization": localStorage.getItem("token")},
                 body: body
             }).then(response => response.json())
             .then(data => {
                 if (data.code === '200') {
                     onSuccess(data);
                 } else {
+                    localStorage.setItem("token", "")
                     onFail(data);
                 }
             }).catch(error => {
