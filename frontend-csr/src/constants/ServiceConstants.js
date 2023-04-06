@@ -4,4 +4,6 @@ const baseServer = `http://${serverIp}:${port}`;
 
 export const getHeaderApi = `${baseServer}/api/v1/entries/header`;
 
+export const getMenuApi = `${baseServer}/api/v1/entries/menu`;
+
 export const signInApi = `${baseServer}/api/v1/auth/sign-in`;
