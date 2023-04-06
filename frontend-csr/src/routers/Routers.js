@@ -65,7 +65,7 @@ export default function Routers() {
                     return <Route key={key} path={key} element={headerRouters[key].component} />
                 })}
                 {Object.keys(menuRouters).map(key => {
-                    return <Route key={key} path={key} element={menuRouters[key].component} />
+                    return <Route key={key} path={`${menuRouters[key].parent}${key}`} element={menuRouters[key].component} />
                 })}
             </Routes>
         </MainLayout>
