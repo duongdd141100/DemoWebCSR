@@ -3,7 +3,7 @@ export const Services = {
         await fetch(url,
             {
                 method: "GET",
-                headers: {"Authorization": localStorage.getItem("token")},
+                headers: {"Authorization": localStorage.getItem("token") || ''},
             }).then(response => {
                 return response.json()
             })
@@ -19,11 +19,11 @@ export const Services = {
                 alert(error.message);
             })
     },
-    post: (url, body, onSuccess, onFail, token) => {
+    post: (url, body, onSuccess, onFail) => {
         fetch(url,
             {
                 method: "POST",
-                headers: {"Authorization": localStorage.getItem("token")},
+                headers: {"Authorization": localStorage.getItem("token") || ''},
                 body: body
             }).then(response => response.json())
             .then(data => {

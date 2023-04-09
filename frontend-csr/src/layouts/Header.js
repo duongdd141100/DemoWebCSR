@@ -1,5 +1,10 @@
 import { NavLink } from "react-router-dom";
 
+function logout() {
+    localStorage.clear();
+    window.location.href = '/';
+}
+
 export default function Header({ header }) {
     return (
         <div>
@@ -9,6 +14,7 @@ export default function Header({ header }) {
             >
                 {header[x].label}
             </NavLink>)}
+            <NavLink to='/' onClick={logout}>Logout</NavLink>
         </div>
     )
 }

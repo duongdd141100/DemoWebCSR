@@ -7,7 +7,6 @@ import Home from '../layouts/Home'
 import About from '../layouts/About'
 import Docs from '../components/Docs'
 import Email from '../components/Email'
-import Logout from '../components/Logout'
 import { Routes, Route } from 'react-router-dom'
 
 
@@ -17,9 +16,6 @@ let headerRouters = {
     },
     '/about': {
         component: <About />
-    },
-    '/logout': {
-        component: <Logout />
     }
 }
 
@@ -37,7 +33,7 @@ export default function Routers() {
     const [menu, setMenu] = useState([])
     // localStorage.setItem("token", "")
     useEffect(() => {
-        if (Object.keys(token).length !== 0 || localStorage.getItem("token").length !== 0) {
+        if (Object.keys(token).length !== 0 || (localStorage.getItem("token") && localStorage.getItem("token").length !== 0)) {
             Services.get(getHeaderApi, (data) => setHeader(data.body), (data) => {
                 throw new Error(data.body);
             }, token)
@@ -48,7 +44,7 @@ export default function Routers() {
         }
     }, [token]);
 
-    if (Object.keys(token).length === 0 && localStorage.getItem("token").length === 0) {
+    if (Object.keys(token).length === 0 && (!localStorage.getItem("token") || localStorage.getItem("token").length === 0)) {
         return <Login setToken={(value) => setToken(value)}/>
     }
     header.forEach(x => {
@@ -59,7 +55,7 @@ export default function Routers() {
         menuRouters[x.slug].parent = x.parent;
     })
     return (
-        <MainLayout header={headerRouters} menuRouters={menuRouters} menu={menu}>
+        <MainLayout header={headerRouters} menuRouters={menuRouters} menu={menu} >
             <Routes>
                 {Object.keys(headerRouters).map(key => {
                     return <Route key={key} path={key} element={headerRouters[key].component} />
