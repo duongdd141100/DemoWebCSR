@@ -2,10 +2,12 @@ package com.example.demologincsr.controller;
 
 import com.example.demologincsr.common.BaseResponse;
 import com.example.demologincsr.entity.Entry;
+import com.example.demologincsr.entity.User;
 import com.example.demologincsr.repository.EntryRepository;
 import com.example.demologincsr.service.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,9 @@ public class EntryController {
     private EntryService entryService;
 
     @GetMapping("/header")
-    public ResponseEntity<BaseResponse<Entry>> getHeader() {
+    public ResponseEntity<BaseResponse<Entry>> getHeader(@AuthenticationPrincipal User user) {
         try {
-            return ResponseEntity.ok(BaseResponse.ok(entryService.findHeader()));
+            return ResponseEntity.ok(BaseResponse.ok(entryService.findHeader(user)));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(BaseResponse.fail(e.getMessage()));
         }
