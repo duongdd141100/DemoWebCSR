@@ -22,4 +22,7 @@ public class Entry extends BaseEntity{
     @Column(name = "parent")
     private String parent;
 
+    @Column(name = "role_id")
+    private String roleId;
+
 }
